@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # MongoDB service
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"  # Exposing MongoDB on port 27017
+    volumes:
+      - mongo_data:/data/db  # Persisting MongoDB data
+    networks:
+      - booking-net
+
+  # Booking Service (Spring Boot)
+  booking-service:
+    build: .
+    container_name: booking-service
+    ports:
+      - "8086:8086"  # Exposing Booking Service on port 8082
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/bookingdb
+    depends_on:
+      - mongo  # Ensure MongoDB starts before the Booking Service
+    networks:
+      - booking-net
+
+# Define a volume for MongoDB data persistence
+volumes:
+  mongo_data:
+
+# Define a custom network for inter-container communication
+networks:
+  booking-net:
+    driver: bridge
