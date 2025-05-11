@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/bookingdb
+  application:
+    name: booking-service
+
+server:
+  port: 9096
