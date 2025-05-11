@@ -1,9 +1,14 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:27017/bookingdb
+      uri: ${MONGODB_URL}
+      username: ${MONGODB_ADMIN_USER_NAME}
+      password: ${MONGODB_ADMIN_USER_PASSWORD}
+      database: ${MONGODB_USER_DB}
   application:
     name: booking-service
 
 server:
   port: 9096
+auth_url: ${AUTH_URL}
+payment_url: ${PAYMENT_URL}

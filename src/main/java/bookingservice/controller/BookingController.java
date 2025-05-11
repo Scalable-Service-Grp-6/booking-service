@@ -4,6 +4,7 @@ package bookingservice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpHeaders;
 
 import bookingservice.model.Booking;
 import bookingservice.model.BookingRequest;
@@ -20,8 +21,8 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/book")
-    public ResponseEntity<Booking> bookTicket(@Valid @RequestBody BookingRequest request) {
-        return ResponseEntity.ok(bookingService.createBooking(request));
+    public ResponseEntity<Booking> bookTicket(@Valid @RequestBody BookingRequest request, @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
+        return ResponseEntity.ok(bookingService.createBooking(request, authHeader));
     }
 
     @GetMapping("/{userId}")
